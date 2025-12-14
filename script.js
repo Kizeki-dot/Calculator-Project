@@ -37,86 +37,151 @@ function updateHistory() {
 
 function updateDisplay() {
     display.textContent = expression || "0";
+
 }
 
 buttons.forEach(btn => {
     btn.addEventListener("click", () => {
-        let value = btn.textContent;
+        const value = btn.textContent;
 
-        // Number
+        // ===== Numbers =====
         if (!isNaN(value)) {
             expression += value;
             updateDisplay();
+            return;
         }
 
-        // Decimal
+        // ===== Decimal =====
         if (value === ".") {
-            expression += ".";
-            updateDisplay();
+            // prevent multiple dots in same number
+            const lastNumber = expression.split(/[+\-*/]/).pop();
+            if (!lastNumber.includes(".")) {
+                expression += ".";
+                updateDisplay();
+            }
+            return;
         }
 
-        // AC
+        // ===== AC =====
         if (value === "AC") {
             expression = "";
             updateDisplay();
+            return;
         }
 
-        // +/- toggle (applies to last number)
+        // ===== +/- =====
         if (value === "+/-") {
-            // Find last number in the expression
-            let parts = expression.match(/[-+]?\d*\.?\d+$/);
-
-            if (parts) {
-                let last = parts[0];
-                let toggled = (-parseFloat(last)).toString();
-                expression = expression.replace(/[-+]?\d*\.?\d+$/, toggled);
+            const match = expression.match(/(-?\d*\.?\d+)$/);
+            if (match) {
+                const toggled = (-parseFloat(match[0])).toString();
+                expression = expression.replace(/(-?\d*\.?\d+)$/, toggled);
                 updateDisplay();
             }
+            return;
         }
 
-        // Operators
+        // ===== % =====
+        if (value === "%") {
+            const match = expression.match(/(-?\d*\.?\d+)$/);
+            if (match) {
+                const percent = (parseFloat(match[0]) / 100).toString();
+                expression = expression.replace(/(-?\d*\.?\d+)$/, percent);
+                updateDisplay();
+            }
+            return;
+        }
+
+        // ===== Operators =====
         if (["+", "-", "*", "/"].includes(value)) {
             if (expression === "") return;
-
-            // Avoid double operator input
             if (/[+\-*/]$/.test(expression)) return;
 
-            expression += " " + value + " ";
+            expression += value;
             updateDisplay();
+            return;
         }
 
-        // Percentage (applies to last number)
-        if (value === "%") {
-            let parts = expression.match(/[-+]?\d*\.?\d+$/);
-
-            if (parts) {
-                let last = parts[0];
-                let percent = (parseFloat(last) / 100).toString();
-                expression = expression.replace(/[-+]?\d*\.?\d+$/, percent);
-                updateDisplay();
-            }
-        }
-
-        // "="
+        // ===== Equals =====
         if (value === "=") {
-            if (expression.trim() === "") return;
-
             try {
-                let result = eval(expression);
-
-                // Save to history
+                const result = eval(expression);
                 history.push(`${expression} = ${result}`);
                 updateHistory();
 
-                // Show result
-                display.textContent = result;
-
-                // Reset expression to result
                 expression = result.toString();
+                display.textContent = expression;
             } catch {
                 display.textContent = "Error";
                 expression = "";
             }
         }
     });
+});
+
+// ===== KEYBOARD & NUMPAD SUPPORT =====
+
+// focus display when clicked
+display.addEventListener("click", () => {
+    display.focus();
+});
+
+// keyboard input
+document.addEventListener("keydown", (e) => {
+    const key = e.key;
+
+    // numbers (top row + numpad)
+    if (!isNaN(key)) {
+        expression += key;
+        updateDisplay();
+        return;
+    }
+
+    // operators
+    if (["+", "-", "*", "/"].includes(key)) {
+        if (expression === "") return;
+        if (/[+\-*/]$/.test(expression)) return;
+
+        expression += key;
+        updateDisplay();
+        return;
+    }
+
+    // decimal
+    if (key === ".") {
+        const last = expression.split(/[+\-*/]/).pop();
+        if (!last.includes(".")) {
+            expression += ".";
+            updateDisplay();
+        }
+        return;
+    }
+
+    // enter (=)
+    if (key === "Enter" || key === "=") {
+        try {
+            const result = eval(expression);
+            history.push(`${expression} = ${result}`);
+            updateHistory();
+
+            expression = result.toString();
+            updateDisplay();
+        } catch {
+            display.textContent = "Error";
+            expression = "";
+        }
+        return;
+    }
+
+    // backspace
+    if (key === "Backspace") {
+        expression = expression.slice(0, -1);
+        updateDisplay();
+        return;
+    }
+
+    // clear
+    if (key === "Escape") {
+        expression = "";
+        updateDisplay();
+    }
 });

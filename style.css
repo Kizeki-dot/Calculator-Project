@@ -35,8 +35,14 @@
     -ms-border-radius: 2%;
     -o-border-radius: 2%;
     background-color: rgba(204, 204, 204, 0.3);
+
+     overflow: hidden;
 }
     
+.display_area p:focus {
+    outline: none;
+}
+
 p{
     padding-top: 10px;
     margin-right: 10px;
