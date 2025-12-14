@@ -94,22 +94,23 @@ button:hover {
     }
 
     .display_area {
-        width: 100%;
+        width: 96%;
         height: 60px;
         font-size: 32px;
         margin: 15px 0;
-    }
+    
+}
 
   
     .buttons {
         display: grid;
         grid-template-columns: repeat(4, 1fr); 
         gap: 10px;
-        width: 100%;
+        width: 98%;
     }
 
     button {
-        width: 100%;          
+        width: 98%;          
         height: 48px;
         font-size: 16px;
         padding: 0;
