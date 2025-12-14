@@ -1,0 +1,72 @@
+.calculator_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.calculator_border{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 3%;
+    width: 500px;
+    height: 500px;
+    box-shadow: 1px 1px 10px 2px rgba(0, 0, 0, 0.2);
+    -webkit-border-radius: 3%;
+    -moz-border-radius: 3%;
+    -ms-border-radius: 3%;
+    -o-border-radius: 3%;
+}
+
+.display_area{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border: 2px solid #cccccc8e;
+    width: 92%;
+    height: 90px;
+    font-size: 60px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    border-radius: 2%;
+    -webkit-border-radius: 2%;
+    -moz-border-radius: 2%;
+    -ms-border-radius: 2%;
+    -o-border-radius: 2%;
+    background-color: rgba(204, 204, 204, 0.3);
+}
+    
+p{
+    padding-top: 10px;
+    margin-right: 10px;
+}
+
+.buttons{
+   display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-evenly;
+    gap: 1px;
+}
+
+button{
+    width: 100px;
+    height: 60px;
+    flex-shrink: 0;
+    margin-bottom: 10px;
+    font-size: large;
+    border: 1px solid #cccccc8e;
+    border-radius: 10%;
+    -webkit-border-radius: 10%;
+    -moz-border-radius: 10%;
+    -ms-border-radius: 10%;
+    -o-border-radius: 10%;
+}
+
+button:hover {
+  background-color: #cccccc8e;
+  cursor: pointer; /* Changes the cursor to a pointer on hover */
+}
+
