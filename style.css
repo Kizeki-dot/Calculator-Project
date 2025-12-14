@@ -79,10 +79,41 @@ button:hover {
 
 @media (max-width: 600px) {
 
-    .calculator_border{
-        width: auto;
-        height: auto;
+    .calculator_container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
     }
-    
+
+    .calculator_border {
+        max-width: 340px;
+        height: auto;
+        margin: 0 auto;
+        padding: 12px;
+    }
+
+    .display_area {
+        width: 100%;
+        height: 60px;
+        font-size: 32px;
+        margin: 15px 0;
+    }
+
+  
+    .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); 
+        gap: 10px;
+        width: 100%;
+    }
+
+    button {
+        width: 100%;          
+        height: 48px;
+        font-size: 16px;
+        padding: 0;
+    }
+
 }
 
