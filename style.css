@@ -73,52 +73,16 @@ button{
 
 button:hover {
   background-color: #cccccc8e;
-  cursor: pointer; /* Changes the cursor to a pointer on hover */
+  cursor: pointer; 
 }
 
-/* ===== MOBILE-FIRST LOOK (PHONE STYLE) ===== */
-.calculator_container {
-    align-items: flex-start;
-    padding-top: 20px;
+
+@media (max-width: 600px) {
+
+    .calculator_border{
+        width: auto;
+        height: auto;
+    }
+    
 }
 
-.calculator_border {
-    width: 100%;
-    max-width: 420px;
-    height: auto;
-    margin: auto;
-    padding-bottom: 10px;
-}
-
-/* display */
-.display_area {
-    width: 95%;
-    height: 80px;
-    font-size: 48px;
-    margin: 15px auto;
-}
-
-/* buttons layout like phone */
-.buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    padding: 10px;
-}
-
-button {
-    width: 100%;
-    height: 65px;
-    font-size: 20px;
-    border-radius: 14px;
-}
-
-/* zero button like phone (optional) */
-button.numbers:nth-child(18) {
-    grid-column: span 2;
-}
-
-/* remove hover weirdness on mobile feel */
-button:hover {
-    background-color: inherit;
-}
